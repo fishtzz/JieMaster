@@ -19,5 +19,61 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/text" />
 
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="#fafafa">
+
+        <RadioButton
+            android:id="@+id/btn_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/home_selector"
+            android:gravity="center"
+            android:paddingTop="@dimen/radio_margin_top"
+            android:text="@string/home"
+            android:textColor="@color/text_selector"
+            android:textSize="@dimen/radio_text_size" />
+
+        <RadioButton
+            android:id="@+id/btn_activity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/activity_selector"
+            android:gravity="center"
+            android:paddingTop="@dimen/radio_margin_top"
+            android:text="@string/activity"
+            android:textColor="@color/text_selector"
+            android:textSize="@dimen/radio_text_size" />
+
+        <RadioButton
+            android:id="@+id/btn_user"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/user_selector"
+            android:gravity="center"
+            android:paddingTop="@dimen/radio_margin_top"
+            android:text="@string/user"
+            android:textColor="@color/text_selector"
+            android:textSize="@dimen/radio_text_size" />
+
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_above="@+id/radio_group"
+        android:background="#dadada" />
+
 
 </RelativeLayout>

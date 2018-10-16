@@ -3,4 +3,7 @@
     <string name="jie_master">借 钱 大 师</string>
     <string name="slogan">极速·省时·方便</string>
     <string name="quit">再按一次退出程序</string>
+    <string name="home">首页</string>
+    <string name="activity">活动</string>
+    <string name="user">我的</string>
 </resources>

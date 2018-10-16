@@ -3,6 +3,7 @@ package com.szmaster.jiemaster;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -14,14 +15,21 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+    private RadioGroup mRadioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initView();
         findViewById(R.id.btn).setOnClickListener(this);
-//        test();
+
+    }
+
+    private void initView() {
+        mRadioGroup = findViewById(R.id.radio_group);
+        mRadioGroup.setOnCheckedChangeListener(this);
     }
 
     private void test() {
@@ -65,6 +73,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId) {
+            case R.id.btn_home:
+                break;
+            case R.id.btn_activity:
+                break;
+            case R.id.btn_user:
+                break;
+            default:
+                break;
         }
     }
 }
