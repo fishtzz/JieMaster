@@ -6,4 +6,6 @@
     
     <color name="colorMain">#547fff</color>
     <color name="colorGrey">#a4aab3</color>
+    <color name="bgMain">#ffffff</color>
+    <color name="transparent">#00ffffff</color>
 </resources>

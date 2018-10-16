@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/bgMain">
 
     <TextView
         android:id="@+id/text"
@@ -24,8 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:background="#fafafa">
+        android:background="#fafafa"
+        android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/btn_home"
@@ -69,11 +70,16 @@
 
     </RadioGroup>
 
+    <FrameLayout
+        android:id="@+id/fragment_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/radio_group" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_above="@+id/radio_group"
         android:background="#dadada" />
-
 
 </RelativeLayout>
