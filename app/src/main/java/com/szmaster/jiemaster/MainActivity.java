@@ -3,11 +3,13 @@ package com.szmaster.jiemaster;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.szmaster.jiemaster.model.ReportModel;
 import com.szmaster.jiemaster.network.base.ApiManager;
 import com.szmaster.jiemaster.utils.Log;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -51,5 +53,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         test();
+    }
+
+    private long stampQuit;
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - stampQuit > 1000) {
+            stampQuit = System.currentTimeMillis();
+            Toast.makeText(this, getString(R.string.quit), Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            super.onBackPressed();
+        }
     }
 }
