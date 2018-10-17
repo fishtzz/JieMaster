@@ -12,6 +12,7 @@ import com.szmaster.jiemaster.utils.DensityUtil;
  */
 
 public class App extends Application {
+
     private static Context sContext;
 
     @Override

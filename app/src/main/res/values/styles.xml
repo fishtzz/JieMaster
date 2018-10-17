@@ -10,4 +10,16 @@
         <item name="android:windowBackground">@color/transparent</item>
     </style>
 
+    <style name="Title">
+        <item name="android:layout_height">@dimen/title_height</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/colorMain</item>
+    </style>
+
+    <style name="Title.Text">
+        <item name="android:textSize">@dimen/title_text_size</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgMain">
+    android:background="@color/bgMain"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="home"
-        android:textColor="@color/colorMain" />
+        style="@style/Title.Text"
+        android:text="home"/>
+
+    <com.stx.xhb.xbanner.XBanner
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/xbanner"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        app:AutoPlayTime="3000"
+        app:pointsPosition="CENTER"
+        app:pointsVisibility="true"
+        app:tipTextSize="12sp"
+        app:isShowNumberIndicator="false"
+        app:isShowIndicatorOnlyOne="false"
+        app:pageChangeDuration="800"/>
 </LinearLayout>

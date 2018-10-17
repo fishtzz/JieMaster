@@ -26,3 +26,4 @@
   **[] $VALUES;
   public *;
 }
+-keep class com.stx.xhb.xbanner.**{*;}

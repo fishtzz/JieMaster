@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/bgMain">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".MainActivity"
+                android:background="@color/bgMain">
 
     <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Hello World!" />
+        android:text="Hello World!"/>
 
     <Button
         android:id="@+id/btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/text" />
+        android:layout_below="@+id/text"/>
 
     <RadioGroup
         android:id="@+id/radio_group"
         android:layout_width="match_parent"
-        android:layout_height="49dp"
+        android:layout_height="@dimen/navigation_height"
         android:layout_alignParentBottom="true"
         android:background="#fafafa"
         android:orientation="horizontal">
@@ -40,7 +40,7 @@
             android:paddingTop="@dimen/radio_margin_top"
             android:text="@string/home"
             android:textColor="@color/text_selector"
-            android:textSize="@dimen/radio_text_size" />
+            android:textSize="@dimen/radio_text_size"/>
 
         <RadioButton
             android:id="@+id/btn_activity"
@@ -53,7 +53,7 @@
             android:paddingTop="@dimen/radio_margin_top"
             android:text="@string/activity"
             android:textColor="@color/text_selector"
-            android:textSize="@dimen/radio_text_size" />
+            android:textSize="@dimen/radio_text_size"/>
 
         <RadioButton
             android:id="@+id/btn_user"
@@ -66,7 +66,7 @@
             android:paddingTop="@dimen/radio_margin_top"
             android:text="@string/user"
             android:textColor="@color/text_selector"
-            android:textSize="@dimen/radio_text_size" />
+            android:textSize="@dimen/radio_text_size"/>
 
     </RadioGroup>
 
@@ -74,12 +74,12 @@
         android:id="@+id/fragment_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/radio_group" />
+        android:layout_above="@+id/radio_group"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_above="@+id/radio_group"
-        android:background="#dadada" />
+        android:background="#dadada"/>
 
 </RelativeLayout>
