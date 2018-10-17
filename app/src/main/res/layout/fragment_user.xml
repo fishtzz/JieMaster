@@ -7,5 +7,5 @@
 
     <TextView
         style="@style/Title.Text"
-        android:text="user"/>
+        android:text="@string/user"/>
 </LinearLayout>

@@ -74,7 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        test();
+//        BrowserActivity.launcher(this,"http://www.baidu.com","带看撒娇范德萨囧扶屌神剑爱发动机撒娇范德萨及范德萨洁癖电视剧啊的撒");
+//        test();
     }
 
     private long stampQuit;

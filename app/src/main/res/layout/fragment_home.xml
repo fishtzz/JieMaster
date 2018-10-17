@@ -8,7 +8,7 @@
 
     <TextView
         style="@style/Title.Text"
-        android:text="home"/>
+        android:text="@string/title_jie_master"/>
 
     <com.stx.xhb.xbanner.XBanner
         xmlns:app="http://schemas.android.com/apk/res-auto"

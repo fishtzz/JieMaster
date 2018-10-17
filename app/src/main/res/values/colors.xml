@@ -9,4 +9,11 @@
     <color name="bgMain">#ffffff</color>
     <color name="text_white">#ffffff</color>
     <color name="transparent">#00ffffff</color>
+
+    <color name="gray_light">#45cdcdcd</color>
+    <color name="gray_dark">#90cdcdcd</color>
+    <color name="holo_blue_light">#ff33b5e5</color>
+    <color name="holo_blue_light_transparent1">#bb33b5e5</color>
+    <color name="holo_blue_light_transparent2">#5533b5e5</color>
+    <color name="holo_blue_dark">#ff0099cc</color>
 </resources>

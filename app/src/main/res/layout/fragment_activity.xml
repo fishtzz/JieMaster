@@ -6,5 +6,5 @@
 
     <TextView
         style="@style/Title.Text"
-        android:text="activity" />
+        android:text="@string/activity" />
 </LinearLayout>
