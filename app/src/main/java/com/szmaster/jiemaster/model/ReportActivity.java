@@ -1,8 +1,9 @@
 package com.szmaster.jiemaster.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.szmaster.jiemaster.widget.recyclerview.RecyclerItem;
 
-public class ReportActivity {
+public class ReportActivity implements RecyclerItem {
     @SerializedName("url")
     private String url;
 
@@ -45,5 +46,10 @@ public class ReportActivity {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    @Override
+    public int getViewType() {
+        return 0;
     }
 }
