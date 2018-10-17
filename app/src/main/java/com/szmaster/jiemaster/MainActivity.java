@@ -3,8 +3,6 @@ package com.szmaster.jiemaster;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -20,7 +18,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
     private RadioGroup mRadioGroup;
     private HomeFragment homeFragment;
     private ActivityFragment activityFragment;
@@ -31,8 +29,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        findViewById(R.id.btn).setOnClickListener(this);
-
     }
 
     private void initView() {
@@ -70,12 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     }
                 });
-    }
-
-    @Override
-    public void onClick(View v) {
-//        BrowserActivity.launcher(this,"http://www.baidu.com","带看撒娇范德萨囧扶屌神剑爱发动机撒娇范德萨及范德萨洁癖电视剧啊的撒");
-//        test();
     }
 
     private long stampQuit;

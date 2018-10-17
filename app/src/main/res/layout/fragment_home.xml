@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgMain"
@@ -8,18 +7,22 @@
 
     <TextView
         style="@style/Title.Text"
-        android:text="@string/title_jie_master"/>
+        android:text="@string/title_jie_master" />
 
-    <com.stx.xhb.xbanner.XBanner
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.stx.xhb.xbanner.XBanner xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/xbanner"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         app:AutoPlayTime="3000"
+        app:isShowIndicatorOnlyOne="false"
+        app:isShowNumberIndicator="false"
+        app:pageChangeDuration="800"
         app:pointsPosition="CENTER"
         app:pointsVisibility="true"
-        app:tipTextSize="12sp"
-        app:isShowNumberIndicator="false"
-        app:isShowIndicatorOnlyOne="false"
-        app:pageChangeDuration="800"/>
+        app:tipTextSize="12sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

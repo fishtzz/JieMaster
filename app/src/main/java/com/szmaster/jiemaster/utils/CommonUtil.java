@@ -226,4 +226,8 @@ public class CommonUtil {
         return tm.getDeviceId();
     }
 
+    public static int getWindowWidth(Context context) {
+        return context.getResources().getDisplayMetrics().widthPixels;
+    }
+
 }

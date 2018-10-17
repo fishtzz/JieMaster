@@ -4,23 +4,36 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.Toast;
 
 import com.stx.xhb.xbanner.XBanner;
 import com.stx.xhb.xbanner.XBanner.XBannerAdapter;
 import com.szmaster.jiemaster.GlideApp;
 import com.szmaster.jiemaster.R;
+import com.szmaster.jiemaster.model.ReportBanner;
+import com.szmaster.jiemaster.model.ReportData;
+import com.szmaster.jiemaster.model.ReportModel;
+import com.szmaster.jiemaster.network.base.ApiManager;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class HomeFragment extends Fragment {
 
     private View root;
     private XBanner mXBanner;
+    private RecyclerView recyclerView;
+    private GridAdapter mAdapter;
 
     @Nullable
     @Override
@@ -39,10 +52,39 @@ public class HomeFragment extends Fragment {
 
     private void initView() {
         mXBanner = root.findViewById(R.id.xbanner);
+        recyclerView = root.findViewById(R.id.recycler);
+        mAdapter = new GridAdapter(getActivity());
+        ApiManager.getArdApi().getReport()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableObserver<ReportModel>() {
+                    @Override
+                    public void onNext(ReportModel reportModel) {
+                        if (reportModel.getCode() == 200 && null != reportModel.getData()) {
+                            refreshView(reportModel.getData());
+                        } else {
+                            Toast.makeText(getActivity(), reportModel.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    private void refreshView(ReportData data) {
+
         final List<String> list = new ArrayList<>();
-        list.add("http://www.shiwandashi.com/appicon/aa49cde8-d02c-11e8-a0f7-00163e041d62.png");
-        list.add("http://www.shiwandashi.com/appicon/aa49cde8-d02c-11e8-a0f7-00163e041d62.png");
-        list.add("http://www.shiwandashi.com/appicon/aa49cde8-d02c-11e8-a0f7-00163e041d62.png");
+        for (ReportBanner banner : data.getBanners()) {
+            list.add(banner.getImg());
+        }
         mXBanner.setData(list, null);
         mXBanner.loadImage(new XBannerAdapter() {
             @Override
@@ -50,6 +92,10 @@ public class HomeFragment extends Fragment {
                 GlideApp.with(HomeFragment.this).load(list.get(position)).into((ImageView) view);
             }
         });
+        mAdapter.updateItems(data.getItems());
+        GridLayoutManager manager = new GridLayoutManager(getActivity(), 2);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(mAdapter);
     }
 
     @Override

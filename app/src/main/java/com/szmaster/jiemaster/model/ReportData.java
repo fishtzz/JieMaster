@@ -11,6 +11,17 @@ public class ReportData {
     @SerializedName("items")
     private List<ReportItem> items;
 
+    @SerializedName("banners")
+    private List<ReportBanner> banners;
+
+    public List<ReportBanner> getBanners() {
+        return banners;
+    }
+
+    public void setBanners(List<ReportBanner> banners) {
+        this.banners = banners;
+    }
+
     public List<ReportActivity> getActivity() {
         return activity;
     }
