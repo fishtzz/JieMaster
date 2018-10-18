@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgMain"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/Title.Text"
+        android:text="@string/login_register" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:src="@mipmap/ic_launcher_login" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/title_jie_master"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_size_m" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="35dp"
+        android:background="@color/gray_light" />
+
+    <EditText
+        android:id="@+id/edit_mobile"
+        style="@style/AppEdit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edit_height"
+        android:drawableLeft="@mipmap/ic_mobile"
+        android:hint="@string/input_mobile" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="@dimen/padding_horizontal"
+        android:layout_marginRight="@dimen/padding_horizontal"
+        android:background="@color/gray_light" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edit_verification"
+            style="@style/AppEdit"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_height"
+            android:layout_weight="1"
+            android:drawableLeft="@mipmap/ic_verification"
+            android:hint="@string/input_verification" />
+
+        <Button
+            android:id="@+id/btn_get_verification"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/padding_horizontal"
+            android:background="@null"
+            android:gravity="center"
+            android:text="@string/get_verification"
+            android:textColor="@color/colorMain"
+            android:textSize="@dimen/text_size_m" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="@dimen/padding_horizontal"
+        android:layout_marginRight="@dimen/padding_horizontal"
+        android:background="@color/gray_light" />
+
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padding_horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="@dimen/padding_horizontal"
+        android:text="@string/login_register"
+        android:textColor="@color/text_white"
+        android:textSize="@dimen/text_size_m" />
+
+</LinearLayout>

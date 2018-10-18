@@ -44,6 +44,8 @@ public class ActivityFragment extends Fragment implements IReportUpdate {
         ReportBus.getInstance().registerIUpdate(this);
         if (null != ReportBus.getInstance().getData()) {
             refreshView(ReportBus.getInstance().getData());
+        } else {
+            ReportBus.getInstance().refreshData();
         }
     }
 
