@@ -7,6 +7,8 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.szmaster.jiemaster.bus.IReportRefresh;
+import com.szmaster.jiemaster.bus.ReportBus;
 import com.szmaster.jiemaster.model.ReportModel;
 import com.szmaster.jiemaster.network.base.ApiManager;
 import com.szmaster.jiemaster.ui.ActivityFragment;
@@ -18,7 +20,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, IReportRefresh {
+
     private RadioGroup mRadioGroup;
     private HomeFragment homeFragment;
     private ActivityFragment activityFragment;
@@ -28,7 +31,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ReportBus.getInstance().registerIRefresh(this);
         initView();
+        refreshReport();
     }
 
     private void initView() {
@@ -40,32 +45,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_frame, homeFragment);
         transaction.commit();
-    }
-
-    private void test() {
-
-        ApiManager.getArdApi().getReport()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableObserver<ReportModel>() {
-                    @Override
-                    public void onNext(ReportModel reportModel) {
-                        Gson gson = new Gson();
-                        Log.d(MainActivity.class, "" + gson.toJson(reportModel));
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d(MainActivity.class, "" + e.getMessage());
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.d(MainActivity.class, "onComplete");
-
-                    }
-                });
     }
 
     private long stampQuit;
@@ -111,5 +90,40 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        ReportBus.getInstance().unregisterIRefresh(this);
+        super.onDestroy();
+    }
+
+    @Override
+    public void refreshReport() {
+
+        ApiManager.getArdApi().getReport()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableObserver<ReportModel>() {
+                    @Override
+                    public void onNext(ReportModel reportModel) {
+                        if (reportModel.getCode() == 200 && null != reportModel.getData()) {
+                            ReportBus.getInstance().updateData(reportModel.getData());
+                        } else {
+                            ReportBus.getInstance().updateDataError(reportModel.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ReportBus.getInstance().updateDataError(e.getMessage());
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }

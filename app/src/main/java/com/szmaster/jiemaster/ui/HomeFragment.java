@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import com.stx.xhb.xbanner.XBanner;
 import com.stx.xhb.xbanner.XBanner.XBannerAdapter;
 import com.szmaster.jiemaster.GlideApp;
 import com.szmaster.jiemaster.R;
+import com.szmaster.jiemaster.bus.IReportUpdate;
+import com.szmaster.jiemaster.bus.ReportBus;
 import com.szmaster.jiemaster.model.ReportBanner;
 import com.szmaster.jiemaster.model.ReportData;
 import com.szmaster.jiemaster.model.ReportModel;
@@ -28,7 +31,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements IReportUpdate {
 
     private View root;
     private XBanner mXBanner;
@@ -54,29 +57,11 @@ public class HomeFragment extends Fragment {
         mXBanner = root.findViewById(R.id.xbanner);
         recyclerView = root.findViewById(R.id.recycler);
         mAdapter = new GridAdapter(getActivity());
-        ApiManager.getArdApi().getReport()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableObserver<ReportModel>() {
-                    @Override
-                    public void onNext(ReportModel reportModel) {
-                        if (reportModel.getCode() == 200 && null != reportModel.getData()) {
-                            refreshView(reportModel.getData());
-                        } else {
-                            Toast.makeText(getActivity(), reportModel.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
+        ReportBus.getInstance().registerIUpdate(this);
+        if (null != ReportBus.getInstance().getData()) {
+            refreshView(ReportBus.getInstance().getData());
+        }
 
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
     }
 
     private void refreshView(ReportData data) {
@@ -108,5 +93,23 @@ public class HomeFragment extends Fragment {
     public void onStop() {
         super.onStop();
         mXBanner.stopAutoPlay();
+    }
+
+    @Override
+    public void onDestroy() {
+        ReportBus.getInstance().unregisterIUpdate(this);
+        super.onDestroy();
+    }
+
+    @Override
+    public void onReportUpdate(ReportData data) {
+        refreshView(data);
+    }
+
+    @Override
+    public void onReportError(String msg) {
+        if (!TextUtils.isEmpty(msg)) {
+            Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
+        }
     }
 }
