@@ -1,5 +1,7 @@
 package com.szmaster.jiemaster.network.base;
 
+import android.os.Build;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -128,7 +130,7 @@ public class HttpConnector {
             // 设置基础参数
             urlBuilder.addQueryParameter("os", Constants.OS_NAME);
             urlBuilder.addQueryParameter("vn", CommonUtil.getVersionName());
-            urlBuilder.addQueryParameter("vc", String.valueOf(CommonUtil.getVersion()));
+            urlBuilder.addQueryParameter("SerialNumber", Build.SERIAL);
             if (Constants.IS_DEBUG) {
                 urlBuilder.addQueryParameter("type", Constants.DEBUG);
             } else {
