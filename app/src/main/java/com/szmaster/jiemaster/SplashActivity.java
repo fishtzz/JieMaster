@@ -9,6 +9,11 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
+
+import com.szmaster.jiemaster.bus.UserBus;
+import com.szmaster.jiemaster.db.PreferenceImp;
+import com.szmaster.jiemaster.utils.CommonUtil;
 
 public class SplashActivity extends Activity {
 
@@ -20,9 +25,19 @@ public class SplashActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        /**
+         * 初始化缓存登录状态
+         */
+        if (null != PreferenceImp.getUserCache()) {
+            UserBus.getInstance().login(PreferenceImp.getUserCache());
+        }
+        if (TextUtils.isEmpty(PreferenceImp.getMacCache())) {
+            PreferenceImp.cacheMac(CommonUtil.getMacAddr());
+        }
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_CODE);
         } else {
+            cacheIMEI();
             goon();
         }
     }
@@ -31,9 +46,15 @@ public class SplashActivity extends Activity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
+            cacheIMEI();
         }
         goon();
+    }
+
+    private void cacheIMEI() {
+        if (TextUtils.isEmpty(PreferenceImp.getIMEICache())) {
+            PreferenceImp.cacheIMEI(CommonUtil.getDeviceId(App.getContext()));
+        }
     }
 
     private void goon() {

@@ -3,6 +3,7 @@ package com.szmaster.jiemaster.bus;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.szmaster.jiemaster.db.PreferenceImp;
 import com.szmaster.jiemaster.model.User;
 
 /**
@@ -14,8 +15,6 @@ public class UserBus {
     private static UserBus instance;
     private static Set<IUser> sIUserSet;
     private boolean isLogin;
-    private String token;
-    private User mUser;
 
     public static UserBus getInstance() {
         if (null == instance) {
@@ -26,18 +25,16 @@ public class UserBus {
     }
 
     public void login(User user) {
-        this.mUser = user;
         this.isLogin = true;
-        this.token = user.getToken();
+        PreferenceImp.login(user);
         for (IUser iUser : sIUserSet) {
             iUser.onLogin(user);
         }
     }
 
     public void logout() {
-        this.mUser = null;
+        PreferenceImp.logout();
         this.isLogin = false;
-        this.token = "";
         for (IUser iUser : sIUserSet) {
             iUser.onLogout();
         }
@@ -60,10 +57,10 @@ public class UserBus {
     }
 
     public String getToken() {
-        return token;
+        return PreferenceImp.getToken();
     }
 
     public User getUser() {
-        return mUser;
+        return PreferenceImp.getUserCache();
     }
 }

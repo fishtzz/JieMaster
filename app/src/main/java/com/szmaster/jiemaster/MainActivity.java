@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.szmaster.jiemaster.bus.IReportRefresh;
 import com.szmaster.jiemaster.bus.ReportBus;
 import com.szmaster.jiemaster.bus.UserBus;
+import com.szmaster.jiemaster.db.PreferenceImp;
 import com.szmaster.jiemaster.model.ReportModel;
 import com.szmaster.jiemaster.network.base.ApiManager;
 import com.szmaster.jiemaster.ui.ActivityFragment;
@@ -37,6 +38,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         setContentView(R.layout.activity_main);
         ReportBus.getInstance().registerIRefresh(this);
         initView();
+        if (null != PreferenceImp.getReportCache()) {
+            ReportBus.getInstance().updateData(PreferenceImp.getReportCache());
+        }
         refreshReport();
     }
 

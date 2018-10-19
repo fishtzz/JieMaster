@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import com.szmaster.jiemaster.App;
 import com.szmaster.jiemaster.Constants;
+import com.szmaster.jiemaster.db.PreferenceImp;
 import com.szmaster.jiemaster.network.base.HttpLoggingInterceptor.Level;
 import com.szmaster.jiemaster.utils.CommonUtil;
 import com.szmaster.jiemaster.utils.Log;
@@ -128,8 +130,9 @@ public class HttpConnector {
         public Response intercept(Chain chain) throws IOException {
             HttpUrl.Builder urlBuilder = chain.request().url().newBuilder();
             // 设置基础参数
-            urlBuilder.addQueryParameter("os", Constants.OS_NAME);
-            urlBuilder.addQueryParameter("vn", CommonUtil.getVersionName());
+            urlBuilder.addQueryParameter("sign", CommonUtil.getSign());
+            urlBuilder.addQueryParameter("imei", PreferenceImp.getIMEICache());
+            urlBuilder.addQueryParameter("mac", PreferenceImp.getIMEICache());
             urlBuilder.addQueryParameter("SerialNumber", Build.SERIAL);
             if (Constants.IS_DEBUG) {
                 urlBuilder.addQueryParameter("type", Constants.DEBUG);

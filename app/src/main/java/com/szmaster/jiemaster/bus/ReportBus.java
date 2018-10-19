@@ -3,6 +3,7 @@ package com.szmaster.jiemaster.bus;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.szmaster.jiemaster.db.PreferenceImp;
 import com.szmaster.jiemaster.model.ReportData;
 
 /**
@@ -16,6 +17,7 @@ public class ReportBus {
     private static Set<IReportUpdate> mUpdateSet;
 
     private ReportData mData;
+    private Object lock = new Object();
 
     public ReportData getData() {
         return mData;
@@ -31,9 +33,12 @@ public class ReportBus {
     }
 
     public void updateData(ReportData data) {
-        this.mData = data;
-        for (IReportUpdate update : mUpdateSet) {
-            update.onReportUpdate(mData);
+        PreferenceImp.cacheReport(data);
+        synchronized (lock) {
+            this.mData = data;
+            for (IReportUpdate update : mUpdateSet) {
+                update.onReportUpdate(mData);
+            }
         }
     }
 

@@ -11,6 +11,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -20,12 +21,16 @@ import android.view.inputmethod.InputMethodManager;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.NetworkInterface;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import com.szmaster.jiemaster.App;
+import com.szmaster.jiemaster.Constants;
+import com.szmaster.jiemaster.db.PreferenceImp;
 
 /**
  * 通用工具类
@@ -229,6 +234,57 @@ public class CommonUtil {
             return "";
         }
         return tm.getDeviceId();
+    }
+
+    public static String getMacAddr() {
+        try {
+            List<NetworkInterface> all = Collections.list(NetworkInterface.getNetworkInterfaces());
+            for (NetworkInterface nif : all) {
+                if (!nif.getName().equalsIgnoreCase("wlan0")) continue;
+
+                byte[] macBytes = nif.getHardwareAddress();
+                if (macBytes == null) {
+                    return "";
+                }
+
+                StringBuilder res1 = new StringBuilder();
+                for (byte b : macBytes) {
+                    res1.append(String.format("%02X:", b));
+                }
+
+                if (res1.length() > 0) {
+                    res1.deleteCharAt(res1.length() - 1);
+                }
+                return res1.toString();
+            }
+        } catch (Exception ex) {
+        }
+        return "02:00:00:00:00:00";
+    }
+
+    /**
+     * 如（假设key为1234）：
+     * time=1539766193
+     * version=1.0.4
+     * mac=00:11:22:33:44
+     * imei=841746298812321
+     * 则：
+     * sign = md5(imei=841746298812321&mac=00:11:22:33:44&time=1539766193version=1.0.41234).hexdigest().lowwer()
+     */
+    private static StringBuffer sb = new StringBuffer();
+
+    public static String getSign() {
+        if (sb.length() > 0) {
+            sb.delete(0, sb.length());
+        }
+        sb.append("imei=").append(PreferenceImp.getIMEICache())
+                .append("&mac=").append(PreferenceImp.getMacCache())
+                .append("&time=").append((int) (System.currentTimeMillis() / 1000))
+                .append("version=").append(getVersionName())
+                .append(Constants.KEY);
+        Log.d("sign -> " + sb.toString());
+
+        return MD5Utils.encodeMD5(sb.toString()).toLowerCase();
     }
 
     public static int getWindowWidth(Context context) {

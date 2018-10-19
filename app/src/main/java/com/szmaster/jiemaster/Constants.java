@@ -10,4 +10,6 @@ public class Constants {
     public static final String OS_NAME = "android";
     public static final String RELEASE = "release";
     public static final String DEBUG = "debug";
+
+    public static final String KEY="1234";
 }
