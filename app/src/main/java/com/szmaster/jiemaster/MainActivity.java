@@ -10,10 +10,12 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.szmaster.jiemaster.bus.IReportRefresh;
+import com.szmaster.jiemaster.bus.IUser;
 import com.szmaster.jiemaster.bus.ReportBus;
 import com.szmaster.jiemaster.bus.UserBus;
 import com.szmaster.jiemaster.db.PreferenceImp;
 import com.szmaster.jiemaster.model.ReportModel;
+import com.szmaster.jiemaster.model.User;
 import com.szmaster.jiemaster.network.base.ApiManager;
 import com.szmaster.jiemaster.ui.ActivityFragment;
 import com.szmaster.jiemaster.ui.HomeFragment;
@@ -23,7 +25,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, IReportRefresh {
+public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, IReportRefresh, IUser {
 
     private RadioGroup mRadioGroup;
     private HomeFragment homeFragment;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ReportBus.getInstance().registerIRefresh(this);
+        UserBus.getInstance().registerIUser(this);
         initView();
         if (null != PreferenceImp.getReportCache()) {
             ReportBus.getInstance().updateData(PreferenceImp.getReportCache());
@@ -89,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
                 transaction2.replace(R.id.fragment_frame, activityFragment);
                 transaction2.commit();
+//                startActivity(new Intent(this, UserSettingActivity.class));
                 break;
             case R.id.btn_user:
                 if (UserBus.getInstance().isLogin()) {
@@ -123,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     protected void onDestroy() {
         ReportBus.getInstance().unregisterIRefresh(this);
+        UserBus.getInstance().unregisterIUser(this);
         super.onDestroy();
     }
 
@@ -153,5 +158,16 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
                     }
                 });
+    }
+
+    @Override
+    public void onLogin(User user) {
+
+    }
+
+    @Override
+    public void onLogout() {
+        currentCheckedId = R.id.btn_home;
+        ((RadioButton) findViewById(R.id.btn_home)).setChecked(true);
     }
 }

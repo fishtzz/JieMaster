@@ -13,6 +13,7 @@ import com.szmaster.jiemaster.db.PreferenceImp;
 import com.szmaster.jiemaster.network.base.HttpLoggingInterceptor.Level;
 import com.szmaster.jiemaster.utils.CommonUtil;
 import com.szmaster.jiemaster.utils.Log;
+
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -172,12 +173,13 @@ public class HttpConnector {
                 }
             }
             //在body中写入公共参数
-            map.put("time", ((int) System.currentTimeMillis() / 1000) + "");
+            int time = (int) (System.currentTimeMillis() / 1000);
+            map.put("time", time + "");
             map.put("imei", PreferenceImp.getIMEICache());
             map.put("mac", PreferenceImp.getIMEICache());
             map.put("serialNumber", Build.SERIAL);
             builder.add("sign", CommonUtil.getSign(map));
-            builder.add("time", ((int) System.currentTimeMillis() / 1000) + "");
+            builder.add("time", time + "");
             builder.add("imei", PreferenceImp.getIMEICache());
             builder.add("mac", PreferenceImp.getIMEICache());
             builder.add("serialNumber", Build.SERIAL);

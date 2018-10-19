@@ -5,6 +5,7 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="colorMain">#547fff</color>
+    <color name="colorMainPressed">#545fff</color>
     <color name="colorGrey">#a4aab3</color>
     <color name="bgMain">#f5f5f5</color>
     <color name="bgWhite">#ffffff</color>

@@ -86,6 +86,7 @@
         android:layout_marginLeft="@dimen/padding_horizontal"
         android:layout_marginTop="15dp"
         android:layout_marginRight="@dimen/padding_horizontal"
+        android:background="@drawable/button_selector"
         android:text="@string/login_register"
         android:textColor="@color/text_white"
         android:textSize="@dimen/text_size_m" />

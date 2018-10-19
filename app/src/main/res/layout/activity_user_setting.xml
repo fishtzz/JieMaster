@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:background="@color/bgMain">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgMain"
+    android:orientation="vertical">
 
 
     <RelativeLayout
@@ -12,34 +12,135 @@
 
         <TextView
             style="@style/Title.Text"
-            android:text="@string/user_setting"/>
+            android:text="@string/user_setting" />
 
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
+            android:drawableLeft="@mipmap/ic_left"
+            android:drawablePadding="5dp"
+            android:gravity="start|center_vertical"
             android:text="@string/go_back"
             android:textColor="@color/text_white"
-            android:textSize="@dimen/text_size_m"/>
+            android:textSize="@dimen/text_size_m" />
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/set_avatar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_horizontal"
-        android:background="@color/bgWhite">
+        android:background="@color/bgWhite"
+        android:padding="@dimen/padding_horizontal">
 
         <TextView
             style="@style/LabelTitle"
-            android:text="@string/avatar"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:text="@string/avatar" />
+
+        <ImageView
+            android:id="@+id/avatar_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_right" />
 
         <ImageView
             android:id="@+id/avatar"
             android:layout_width="@dimen/avatar_height"
             android:layout_height="@dimen/avatar_height"
-            android:layout_alignParentRight="true"/>
+            android:layout_marginEnd="@dimen/padding_horizontal"
+            android:layout_toStartOf="@+id/avatar_right" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_horizontal"
+        android:background="@color/bgWhite"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/set_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/label_height"
+            android:background="@color/bgWhite"
+            android:padding="@dimen/padding_horizontal">
+
+            <TextView
+                style="@style/LabelTitle"
+                android:layout_centerVertical="true"
+                android:text="@string/nickname" />
+
+            <ImageView
+                android:id="@+id/nick_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_right" />
+
+            <TextView
+                android:id="@+id/tv_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/padding_horizontal"
+                android:layout_toStartOf="@+id/nick_right"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_m" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="@dimen/padding_horizontal"
+            android:background="@color/gray_dark" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/label_height"
+            android:background="@color/bgWhite"
+            android:padding="@dimen/padding_horizontal">
+
+            <TextView
+                style="@style/LabelTitle"
+                android:layout_centerVertical="true"
+                android:text="@string/mobile_num" />
+
+            <ImageView
+                android:id="@+id/mobile_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_right"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/tv_mobile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/padding_horizontal"
+                android:layout_toStartOf="@+id/mobile_right"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_m" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_horizontal"
+        android:background="@drawable/button_selector"
+        android:text="@string/logout"
+        android:textColor="@color/text_white"
+        android:textSize="@dimen/text_size_m" />
 
 </LinearLayout>

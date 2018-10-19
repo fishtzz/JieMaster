@@ -16,6 +16,16 @@ public class User {
     private String userImg;
     @SerializedName("token")
     private String token;
+    @SerializedName("mobile")
+    private String mobile;
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
 
     public String getUserId() {
         return userId;
