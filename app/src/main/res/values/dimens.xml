@@ -11,4 +11,5 @@
     <dimen name="text_size_m">14sp</dimen>
     <dimen name="text_size_l">18sp</dimen>
     <dimen name="edit_height">48dp</dimen>
+    <dimen name="avatar_height">50dp</dimen>
 </resources>

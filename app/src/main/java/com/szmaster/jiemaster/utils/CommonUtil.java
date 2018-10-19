@@ -11,7 +11,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -22,11 +21,14 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.NetworkInterface;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.szmaster.jiemaster.App;
 import com.szmaster.jiemaster.Constants;
@@ -273,15 +275,18 @@ public class CommonUtil {
      */
     private static StringBuffer sb = new StringBuffer();
 
-    public static String getSign() {
+    public static String getSign(HashMap<String, String> map) {
+        List<String> list = new ArrayList<>();
+        list.addAll(map.keySet());
+        Collections.sort(list);
         if (sb.length() > 0) {
             sb.delete(0, sb.length());
         }
-        sb.append("imei=").append(PreferenceImp.getIMEICache())
-                .append("&mac=").append(PreferenceImp.getMacCache())
-                .append("&time=").append((int) (System.currentTimeMillis() / 1000))
-                .append("version=").append(getVersionName())
-                .append(Constants.KEY);
+        for (String key : list) {
+            sb.append(key).append("=").append(map.get(key)).append("&");
+        }
+        sb.delete(sb.length() - 1, sb.length());
+        sb.append(Constants.KEY);
         Log.d("sign -> " + sb.toString());
 
         return MD5Utils.encodeMD5(sb.toString()).toLowerCase();

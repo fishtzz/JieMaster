@@ -13,10 +13,13 @@ import com.szmaster.jiemaster.db.PreferenceImp;
 import com.szmaster.jiemaster.network.base.HttpLoggingInterceptor.Level;
 import com.szmaster.jiemaster.utils.CommonUtil;
 import com.szmaster.jiemaster.utils.Log;
+import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -128,41 +131,57 @@ public class HttpConnector {
 
         @Override
         public Response intercept(Chain chain) throws IOException {
-            HttpUrl.Builder urlBuilder = chain.request().url().newBuilder();
+//            HttpUrl.Builder urlBuilder = chain.request().url().newBuilder();
             // 设置基础参数
-            urlBuilder.addQueryParameter("sign", CommonUtil.getSign());
-            urlBuilder.addQueryParameter("imei", PreferenceImp.getIMEICache());
-            urlBuilder.addQueryParameter("mac", PreferenceImp.getIMEICache());
-            urlBuilder.addQueryParameter("SerialNumber", Build.SERIAL);
-            if (Constants.IS_DEBUG) {
-                urlBuilder.addQueryParameter("type", Constants.DEBUG);
-            } else {
-                urlBuilder.addQueryParameter("type", Constants.RELEASE);
-            }
+//            urlBuilder.addQueryParameter("sign", CommonUtil.getSign());
+//            urlBuilder.addQueryParameter("imei", PreferenceImp.getIMEICache());
+//            urlBuilder.addQueryParameter("mac", PreferenceImp.getIMEICache());
+//            urlBuilder.addQueryParameter("SerialNumber", Build.SERIAL);
+//            if (Constants.IS_DEBUG) {
+//                urlBuilder.addQueryParameter("type", Constants.DEBUG);
+//            } else {
+//                urlBuilder.addQueryParameter("type", Constants.RELEASE);
+//            }
 
             // 设置Form 表单及Cookie
             Request.Builder newBuilder = chain.request().newBuilder();
-            newBuilder.url(urlBuilder.build());
-            // 如果加密参数
-//            if (encryptionFormParams) {
-//                RequestBody body = chain.request().body();
-//                if (body instanceof FormBody) {
-//                    FormBody formBody = (FormBody) body;
-//                    HashMap<String, String> params = new HashMap<>();
-//                    for (int i = 0; i < formBody.size(); i++) {
-//                        params.put(formBody.encodedName(i), formBody.encodedValue(i));
-//                    }
-//
+//            newBuilder.url(urlBuilder.build());
+            RequestBody body = chain.request().body();
+            FormBody.Builder builder = new FormBody.Builder();
+            HashMap<String, String> map = new HashMap<>();
+            if (body instanceof FormBody) {
+
+                // 如果加密参数
+                if (encryptionFormParams) {
+                    FormBody formBody = (FormBody) body;
+                    HashMap<String, String> params = new HashMap<>();
+                    for (int i = 0; i < formBody.size(); i++) {
+                        params.put(formBody.encodedName(i), formBody.encodedValue(i));
+                    }
+
 //                    FormBody newFormBody = new FormBody.Builder()
 //                            .add("parad", EncryptionTools.getParad(params, mMd5Key, mDesKey))
 //                            .build();
-//                    newBuilder.method(chain.request().method(), newFormBody);
-//                }
-//            }
-//            if (UserSessionManager.getInstance().hasCookie()) {
-//                newBuilder.addHeader("Cookie", "Q=" + UserSessionManager.getInstance().getQString() + "; "
-//                        + "T=" + UserSessionManager.getInstance().getTString());
-//            }
+//                    newBuilder.method(chain.request().method(), newFormBody);}
+                } else {
+                    FormBody formBody = (FormBody) body;
+                    for (int i = 0; i < formBody.size(); i++) {
+                        builder.add(formBody.encodedName(i), formBody.encodedValue(i));
+                        map.put(formBody.encodedName(i), formBody.encodedValue(i));
+                    }
+                }
+            }
+            //在body中写入公共参数
+            map.put("time", ((int) System.currentTimeMillis() / 1000) + "");
+            map.put("imei", PreferenceImp.getIMEICache());
+            map.put("mac", PreferenceImp.getIMEICache());
+            map.put("serialNumber", Build.SERIAL);
+            builder.add("sign", CommonUtil.getSign(map));
+            builder.add("time", ((int) System.currentTimeMillis() / 1000) + "");
+            builder.add("imei", PreferenceImp.getIMEICache());
+            builder.add("mac", PreferenceImp.getIMEICache());
+            builder.add("serialNumber", Build.SERIAL);
+            newBuilder.method(chain.request().method(), builder.build());
 
             Request newRequest = newBuilder.build();
             return chain.proceed(newRequest);

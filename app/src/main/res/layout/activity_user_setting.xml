@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@color/bgMain">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/Title.Text"
+            android:text="@string/user_setting"/>
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="@string/go_back"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_m"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_horizontal"
+        android:background="@color/bgWhite">
+
+        <TextView
+            style="@style/LabelTitle"
+            android:text="@string/avatar"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/avatar_height"
+            android:layout_height="@dimen/avatar_height"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+</LinearLayout>
