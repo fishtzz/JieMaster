@@ -93,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 transaction2.replace(R.id.fragment_frame, activityFragment);
                 transaction2.commit();
 //                startActivity(new Intent(this, UserSettingActivity.class));
+//                startActivity(new Intent(this, HelpActivity.class));
+//                startActivity(new Intent(this, AboutActivity.class));
                 break;
             case R.id.btn_user:
                 if (UserBus.getInstance().isLogin()) {

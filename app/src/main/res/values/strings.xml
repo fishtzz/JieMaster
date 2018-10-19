@@ -22,4 +22,12 @@
     <string name="help">新手帮助</string>
     <string name="about_us">关于我们</string>
     <string name="id">ID: %s</string>
+    <string name="help_q_1">Q1：注册时候填写手机号错误、更换或遗忘怎么办？</string>
+    <string name="help_a_1">您可以登录APP打开“我的”-点击头像/昵称查看手机号，使用手机号和验证码即可登录APP。</string>
+    <string name="help_q_2">Q2：注册/登录无法收到短信验证码？</string>
+    <string name="help_a_2">建议您多尝试一下获取验证码，可能是因为注册人数较多系统繁忙或其他问题导致短信没有下发成功，如尝试后无法解决此问题请联系客服反馈。</string>
+    <string name="help_q_3">Q3：使用过程中遇到BUG或者体验问题怎么办？</string>
+    <string name="help_a_3">您可以联系客服QQ：3485044839向我们反馈您的意见，感谢您的协助与支持并提供宝贵意见。我们将不断改善，为您提供优质的产品和服务，谢谢您！</string>
+    <string name="about_desc">《借钱大师》是深圳大师科技有限公司旗下提供住房公积金查询服务的软件，集合了公积金贷款攻略、信用卡申请攻略、银行卡还款攻略，满足用户多种攻略需求。还有公积金缴存计算、公积金贷款计算器、业务网点等功能，为用户提供全面高效的公积金信息服务。</string>
+    <string name="version_name">版本号: %s</string>
 </resources>

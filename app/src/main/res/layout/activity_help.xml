@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgMain"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/Title.Text"
+            android:text="@string/help" />
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:drawableLeft="@mipmap/ic_left"
+            android:drawablePadding="5dp"
+            android:gravity="start|center_vertical"
+            android:text="@string/go_back"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_m" />
+    </RelativeLayout>
+
+    <TextView
+        style="@style/Help.Q"
+        android:text="@string/help_q_1" />
+
+    <TextView
+        style="@style/Help.A"
+        android:text="@string/help_a_1" />
+
+    <TextView
+        style="@style/Help.Q"
+        android:text="@string/help_q_2" />
+
+    <TextView
+        style="@style/Help.A"
+        android:text="@string/help_a_2" />
+
+    <TextView
+        style="@style/Help.Q"
+        android:text="@string/help_q_3" />
+
+    <TextView
+        style="@style/Help.A"
+        android:text="@string/help_a_3" />
+
+</LinearLayout>

@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.szmaster.jiemaster.AboutActivity;
 import com.szmaster.jiemaster.GlideApp;
+import com.szmaster.jiemaster.HelpActivity;
 import com.szmaster.jiemaster.R;
 import com.szmaster.jiemaster.UserSettingActivity;
 import com.szmaster.jiemaster.bus.UserBus;
@@ -66,8 +68,10 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), UserSettingActivity.class));
                 break;
             case R.id.about:
+                startActivity(new Intent(getActivity(), AboutActivity.class));
                 break;
             case R.id.help:
+                startActivity(new Intent(getActivity(), HelpActivity.class));
                 break;
             default:
                 break;
