@@ -202,12 +202,12 @@ public class UserSettingActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void reviseUserImg(File img) {
-        RequestBody body1 = RequestBody.create(MediaType.parse("image/jpg"), img);
+        RequestBody body1 = RequestBody.create(MediaType.parse("image/png"), img);
         HashMap<String, RequestBody> params = new HashMap<>();
         params.put("userId", createRequestBody(user.getUserId()));
         params.put("token", createRequestBody(user.getToken()));
         params.put("time", createRequestBody(((int) (System.currentTimeMillis() / 1000)) + ""));
-        params.put("userImg", body1);
+        params.put("userImg\"; filename=\"" + img.getName(), body1);
         ApiManager.getArdApi().reviseUserImg(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -273,6 +273,12 @@ public class UserSettingActivity extends AppCompatActivity implements View.OnCli
             case TAKE_PHOTO:
                 if (resultCode == RESULT_OK) {
                     reviseUserImg(outputImage);
+//                    try {
+//                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+//                        ((ImageView) findViewById(R.id.img_test)).setImageBitmap(bitmap);
+//                    } catch (FileNotFoundException e) {
+//                        e.printStackTrace();
+//                    }
                 }
                 break;
             case CHOOSE_PHOTO:

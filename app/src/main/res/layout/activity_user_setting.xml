@@ -142,5 +142,9 @@
         android:text="@string/logout"
         android:textColor="@color/text_white"
         android:textSize="@dimen/text_size_m" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/img_test"/>
 
 </LinearLayout>
