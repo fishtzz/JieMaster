@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.szmaster.jiemaster.bus.IUser;
 import com.szmaster.jiemaster.bus.UserBus;
 import com.szmaster.jiemaster.model.IModel;
@@ -80,7 +81,7 @@ public class UserSettingActivity extends AppCompatActivity implements View.OnCli
 
     private void initView() {
         avatar = findViewById(R.id.avatar);
-        GlideApp.with(this).load(user.getUserImg()).into(avatar);
+        Glide.with(this).load(user.getUserImg()).into(avatar);
         setAvatar = findViewById(R.id.set_avatar);
         setAvatar.setOnClickListener(this);
         tvNickname = findViewById(R.id.tv_nickname);
