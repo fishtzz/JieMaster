@@ -35,8 +35,9 @@
         style="@style/AppEdit"
         android:layout_width="match_parent"
         android:layout_height="@dimen/edit_height"
-        android:drawableLeft="@mipmap/ic_mobile"
-        android:hint="@string/input_mobile" />
+        android:drawableStart="@mipmap/ic_mobile"
+        android:hint="@string/input_mobile"
+        android:inputType="number" />
 
     <View
         android:layout_width="match_parent"
@@ -57,7 +58,8 @@
             android:layout_height="@dimen/edit_height"
             android:layout_weight="1"
             android:drawableLeft="@mipmap/ic_verification"
-            android:hint="@string/input_verification" />
+            android:hint="@string/input_verification"
+            android:inputType="number" />
 
         <Button
             android:id="@+id/btn_get_verification"

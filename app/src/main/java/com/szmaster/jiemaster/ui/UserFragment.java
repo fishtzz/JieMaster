@@ -14,11 +14,14 @@ import android.widget.TextView;
 import com.szmaster.jiemaster.AboutActivity;
 import com.szmaster.jiemaster.GlideApp;
 import com.szmaster.jiemaster.HelpActivity;
+import com.szmaster.jiemaster.MainActivity;
 import com.szmaster.jiemaster.R;
 import com.szmaster.jiemaster.UserSettingActivity;
+import com.szmaster.jiemaster.bus.IUser;
 import com.szmaster.jiemaster.bus.UserBus;
+import com.szmaster.jiemaster.model.User;
 
-public class UserFragment extends Fragment implements View.OnClickListener {
+public class UserFragment extends Fragment implements View.OnClickListener, IUser {
     private View root;
     private ImageView avatar;
     private TextView tvUsername;
@@ -32,6 +35,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (null == root) {
             root = inflater.inflate(R.layout.fragment_user, container, false);
+            UserBus.getInstance().registerIUser(this);
         }
         return root;
     }
@@ -40,6 +44,12 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
+    }
+
+    @Override
+    public void onDestroy() {
+        UserBus.getInstance().unregisterIUser(this);
+        super.onDestroy();
     }
 
     private void initView() {
@@ -65,7 +75,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.setting:
-                startActivity(new Intent(getActivity(), UserSettingActivity.class));
+                //回调指向MainActivity,不在此fragment中处理
+                getActivity().startActivityForResult(new Intent(getActivity(), UserSettingActivity.class), MainActivity.REQUEST_CODE_SETTING);
                 break;
             case R.id.about:
                 startActivity(new Intent(getActivity(), AboutActivity.class));
@@ -76,5 +87,15 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onLogin(User user) {
+        initView();
+    }
+
+    @Override
+    public void onLogout() {
+
     }
 }

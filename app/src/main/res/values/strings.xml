@@ -30,4 +30,11 @@
     <string name="help_a_3">您可以联系客服QQ：3485044839向我们反馈您的意见，感谢您的协助与支持并提供宝贵意见。我们将不断改善，为您提供优质的产品和服务，谢谢您！</string>
     <string name="about_desc">《借钱大师》是深圳大师科技有限公司旗下提供住房公积金查询服务的软件，集合了公积金贷款攻略、信用卡申请攻略、银行卡还款攻略，满足用户多种攻略需求。还有公积金缴存计算、公积金贷款计算器、业务网点等功能，为用户提供全面高效的公积金信息服务。</string>
     <string name="version_name">版本号: %s</string>
+    <string name="revise_username">修改用户名</string>
+    <string name="revise_user_img">修改头像</string>
+    <string name="input_username">输入用户名</string>
+    <string name="submit">提交</string>
+    <string name="cancel">取消</string>
+    <string name="camera">相机</string>
+    <string name="gallery">相册</string>
 </resources>

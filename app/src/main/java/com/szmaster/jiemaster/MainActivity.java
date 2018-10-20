@@ -2,6 +2,7 @@ package com.szmaster.jiemaster;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private ActivityFragment activityFragment;
     private UserFragment userFragment;
     private static final int REQUEST_CODE_LOGIN = 10086;
+    public static final int REQUEST_CODE_SETTING = 10087;
     private int currentCheckedId;
 
     @Override
@@ -123,6 +125,10 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 && resultCode == Activity.RESULT_OK
                 && UserBus.getInstance().isLogin()) {
             ((RadioButton) findViewById(R.id.btn_user)).setChecked(true);
+        } else if (requestCode == REQUEST_CODE_SETTING
+                && !UserBus.getInstance().isLogin()) {
+            currentCheckedId = R.id.btn_home;
+            ((RadioButton) findViewById(R.id.btn_home)).setChecked(true);
         }
     }
 
@@ -136,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     public void refreshReport() {
 
-        ApiManager.getArdApi().getReport()
+        ApiManager.getArdApi().getReport(Build.BRAND, Build.MODEL, Build.VERSION.RELEASE)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableObserver<ReportModel>() {
@@ -169,7 +175,5 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void onLogout() {
-        currentCheckedId = R.id.btn_home;
-        ((RadioButton) findViewById(R.id.btn_home)).setChecked(true);
     }
 }

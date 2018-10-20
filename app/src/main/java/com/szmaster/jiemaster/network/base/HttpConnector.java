@@ -148,10 +148,10 @@ public class HttpConnector {
             Request.Builder newBuilder = chain.request().newBuilder();
 //            newBuilder.url(urlBuilder.build());
             RequestBody body = chain.request().body();
-            FormBody.Builder builder = new FormBody.Builder();
             HashMap<String, String> map = new HashMap<>();
             if (body instanceof FormBody) {
 
+                FormBody.Builder builder = new FormBody.Builder();
                 // 如果加密参数
                 if (encryptionFormParams) {
                     FormBody formBody = (FormBody) body;
@@ -171,19 +171,21 @@ public class HttpConnector {
                         map.put(formBody.encodedName(i), formBody.encodedValue(i));
                     }
                 }
+                //在body中写入公共参数
+                int time = (int) (System.currentTimeMillis() / 1000);
+                map.put("time", time + "");
+                map.put("imei", PreferenceImp.getIMEICache());
+                map.put("mac", PreferenceImp.getIMEICache());
+                map.put("serialNumber", Build.SERIAL);
+                builder.add("sign", CommonUtil.getSign(map));
+                builder.add("time", time + "");
+                builder.add("imei", PreferenceImp.getIMEICache());
+                builder.add("mac", PreferenceImp.getIMEICache());
+                builder.add("serialNumber", Build.SERIAL);
+                newBuilder.method(chain.request().method(), builder.build());
+            } else if (body instanceof MultipartBody) {
+                newBuilder.method(chain.request().method(), body);
             }
-            //在body中写入公共参数
-            int time = (int) (System.currentTimeMillis() / 1000);
-            map.put("time", time + "");
-            map.put("imei", PreferenceImp.getIMEICache());
-            map.put("mac", PreferenceImp.getIMEICache());
-            map.put("serialNumber", Build.SERIAL);
-            builder.add("sign", CommonUtil.getSign(map));
-            builder.add("time", time + "");
-            builder.add("imei", PreferenceImp.getIMEICache());
-            builder.add("mac", PreferenceImp.getIMEICache());
-            builder.add("serialNumber", Build.SERIAL);
-            newBuilder.method(chain.request().method(), builder.build());
 
             Request newRequest = newBuilder.build();
             return chain.proceed(newRequest);
