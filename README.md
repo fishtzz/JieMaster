@@ -1,2 +1,2 @@
 # JieMaster
-Jianmin Tang is SB
+Jamain Tang is SB
