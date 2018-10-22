@@ -1,8 +1,12 @@
 package com.szmaster.jiemaster;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -12,12 +16,15 @@ import com.szmaster.jiemaster.bus.IUser;
 import com.szmaster.jiemaster.bus.ReportBus;
 import com.szmaster.jiemaster.bus.UserBus;
 import com.szmaster.jiemaster.db.PreferenceImp;
+import com.szmaster.jiemaster.model.CheckVersionModel;
 import com.szmaster.jiemaster.model.ReportModel;
 import com.szmaster.jiemaster.model.User;
+import com.szmaster.jiemaster.model.VersionInfo;
 import com.szmaster.jiemaster.network.base.ApiManager;
 import com.szmaster.jiemaster.ui.ActivityFragment;
 import com.szmaster.jiemaster.ui.HomeFragment;
 import com.szmaster.jiemaster.ui.UserFragment;
+import com.szmaster.jiemaster.utils.CommonUtil;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -51,6 +58,34 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_frame, homeFragment);
         transaction.commit();
+
+        checkVersion();
+    }
+
+    private void checkVersion() {
+        ApiManager.getArdApi().checkVersion()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableObserver<CheckVersionModel>() {
+                    @Override
+                    public void onNext(CheckVersionModel checkVersionModel) {
+                        if (200 == checkVersionModel.getCode() && null != checkVersionModel.getData()) {
+                            if (checkVersionModel.getData().getVersionName().compareTo(CommonUtil.getVersionName()) > 0) {
+                                showUpdateDialog(checkVersionModel.getData());
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private long stampQuit;
@@ -114,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 .subscribe(new DisposableObserver<ReportModel>() {
                     @Override
                     public void onNext(ReportModel reportModel) {
-                        if (reportModel.getCode() == 200 && null != reportModel.getData()) {
+                        if (200 == reportModel.getCode() && null != reportModel.getData()) {
                             ReportBus.getInstance().updateData(reportModel.getData());
                         } else {
                             ReportBus.getInstance().updateDataError(reportModel.getMessage());
@@ -124,7 +159,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     @Override
                     public void onError(Throwable e) {
                         ReportBus.getInstance().updateDataError(e.getMessage());
-
                     }
 
                     @Override
@@ -142,5 +176,29 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     public void onLogout() {
         finish();
+    }
+
+    private void showUpdateDialog(final VersionInfo versionInfo) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar_MinWidth);
+
+        builder.setTitle(R.string.update_available)
+                .setMessage(versionInfo.getUpdateDesc())
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton(R.string.submit, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent();
+                        intent.setAction("android.intent.action.VIEW");
+                        Uri content_url = Uri.parse(versionInfo.getUrl());
+                        intent.setData(content_url);
+                        startActivity(intent);
+                    }
+                })
+                .show();
     }
 }

@@ -1,6 +1,7 @@
 package com.szmaster.jiemaster.network;
 
 
+import com.szmaster.jiemaster.model.CheckVersionModel;
 import com.szmaster.jiemaster.model.ReportModel;
 
 import com.szmaster.jiemaster.model.ReviseUserImgModel;
@@ -64,12 +65,15 @@ public interface ArdApi {
     Observable<ReviseUsernameModel> reviseUsername(@Field("userId") String userId, @Field("userName") String userName, @Field("token") String token);
 
     /**
-     * @param userId  userId
-     * @param userImg avatar文件
-     * @param token   token
+     * @param params 手动构建请求参数
      * @return ReviseUserImgModel
      */
     @Multipart
     @POST("ardapi/update_img/")
     Observable<ReviseUserImgModel> reviseUserImg(@PartMap HashMap<String, RequestBody> params);
+
+
+    @FormUrlEncoded
+    @POST("ardapi//")
+    Observable<CheckVersionModel> checkVersion();
 }

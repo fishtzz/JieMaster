@@ -37,4 +37,6 @@
     <string name="cancel">取消</string>
     <string name="camera">相机</string>
     <string name="gallery">相册</string>
+    <string name="update_available">有新版本</string>
+    <string name="update_now">立即更新</string>
 </resources>
