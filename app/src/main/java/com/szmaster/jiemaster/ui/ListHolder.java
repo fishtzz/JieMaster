@@ -32,7 +32,7 @@ public class ListHolder extends CommonHolder<ReportActivity> {
         int height = width / 4;
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
         img.setLayoutParams(params);
-        ViewGroup.LayoutParams params1 = new ViewGroup.LayoutParams(width, height * 5 / 4);
+        ViewGroup.LayoutParams params1 = new ViewGroup.LayoutParams(width, height * 8/ 5);
         root.setLayoutParams(params1);
     }
 

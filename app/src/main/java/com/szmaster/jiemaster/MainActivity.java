@@ -1,12 +1,9 @@
 package com.szmaster.jiemaster;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -21,7 +18,6 @@ import com.szmaster.jiemaster.network.base.ApiManager;
 import com.szmaster.jiemaster.ui.ActivityFragment;
 import com.szmaster.jiemaster.ui.HomeFragment;
 import com.szmaster.jiemaster.ui.UserFragment;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -32,9 +28,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private HomeFragment homeFragment;
     private ActivityFragment activityFragment;
     private UserFragment userFragment;
-    private static final int REQUEST_CODE_LOGIN = 10086;
-    public static final int REQUEST_CODE_SETTING = 10087;
-    private int currentCheckedId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_frame, homeFragment);
         transaction.commit();
-        currentCheckedId = R.id.btn_home;
     }
 
     private long stampQuit;
@@ -78,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
             case R.id.btn_home:
-                currentCheckedId = R.id.btn_home;
                 if (null == homeFragment) {
                     homeFragment = new HomeFragment();
                 }
@@ -87,48 +78,23 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 transaction.commit();
                 break;
             case R.id.btn_activity:
-                currentCheckedId = R.id.btn_activity;
                 if (null == activityFragment) {
                     activityFragment = new ActivityFragment();
                 }
                 FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
                 transaction2.replace(R.id.fragment_frame, activityFragment);
                 transaction2.commit();
-//                startActivity(new Intent(this, UserSettingActivity.class));
-//                startActivity(new Intent(this, HelpActivity.class));
-//                startActivity(new Intent(this, AboutActivity.class));
                 break;
             case R.id.btn_user:
-                if (UserBus.getInstance().isLogin()) {
-                    if (null == userFragment) {
-                        userFragment = new UserFragment();
-                    }
-                    FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
-                    transaction3.replace(R.id.fragment_frame, userFragment);
-                    transaction3.commit();
-                    currentCheckedId = R.id.btn_user;
-                } else {
-                    startActivityForResult(new Intent(MainActivity.this
-                            , RegisterOrLoginActivity.class), REQUEST_CODE_LOGIN);
-                    ((RadioButton) findViewById(currentCheckedId)).setChecked(true);
+                if (null == userFragment) {
+                    userFragment = new UserFragment();
                 }
+                FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
+                transaction3.replace(R.id.fragment_frame, userFragment);
+                transaction3.commit();
                 break;
             default:
                 break;
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_LOGIN
-                && resultCode == Activity.RESULT_OK
-                && UserBus.getInstance().isLogin()) {
-            ((RadioButton) findViewById(R.id.btn_user)).setChecked(true);
-        } else if (requestCode == REQUEST_CODE_SETTING
-                && !UserBus.getInstance().isLogin()) {
-            currentCheckedId = R.id.btn_home;
-            ((RadioButton) findViewById(R.id.btn_home)).setChecked(true);
         }
     }
 
@@ -175,5 +141,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void onLogout() {
+        finish();
     }
 }

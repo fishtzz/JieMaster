@@ -1,6 +1,6 @@
 package com.szmaster.jiemaster;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,7 +19,6 @@ import com.szmaster.jiemaster.model.SmsVerificationModel;
 import com.szmaster.jiemaster.model.User;
 import com.szmaster.jiemaster.model.UserModel;
 import com.szmaster.jiemaster.network.base.ApiManager;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -84,7 +83,7 @@ public class RegisterOrLoginActivity extends AppCompatActivity implements IUser,
 
     @Override
     public void onLogin(User user) {
-        setResult(Activity.RESULT_OK);
+        startActivity(new Intent(RegisterOrLoginActivity.this, MainActivity.class));
         finish();
     }
 
@@ -168,5 +167,18 @@ public class RegisterOrLoginActivity extends AppCompatActivity implements IUser,
                     }
                 });
 
+    }
+
+    private long stampQuit;
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - stampQuit > 1000) {
+            stampQuit = System.currentTimeMillis();
+            Toast.makeText(this, getString(R.string.quit), Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            super.onBackPressed();
+        }
     }
 }

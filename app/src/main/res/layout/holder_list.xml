@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="5dp">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/padding_vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,7 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/text_black"
-            android:textSize="@dimen/text_size_m" />
+            android:textSize="@dimen/text_size_m"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tv_desc"
@@ -26,7 +27,7 @@
             android:layout_below="@+id/tv_title"
             android:layout_alignLeft="@+id/tv_title"
             android:textColor="@color/text_grey"
-            android:textSize="@dimen/text_size_s" />
+            android:textSize="@dimen/text_size_s"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,12 +36,22 @@
             android:layout_centerVertical="true"
             android:text="@string/view_now"
             android:textColor="@color/text_grey"
-            android:textSize="@dimen/text_size_m" />
+            android:textSize="@dimen/text_size_m"/>
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/padding_horizontal"
+        android:background="@color/bgWhite"/>
 
     <ImageView
         android:id="@+id/img"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/padding_horizontal"
+        android:background="@color/bgWhite"/>
 
 </LinearLayout>

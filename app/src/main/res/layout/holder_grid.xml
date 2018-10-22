@@ -28,7 +28,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/text_black"
-            android:textSize="@dimen/text_size_l" />
+            android:textSize="@dimen/text_size_m" />
 
         <TextView
             android:id="@+id/tv_desc"

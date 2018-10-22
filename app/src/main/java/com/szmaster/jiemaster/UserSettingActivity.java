@@ -115,6 +115,7 @@ public class UserSettingActivity extends AppCompatActivity implements View.OnCli
 
             case R.id.btn_logout:
                 UserBus.getInstance().logout();
+                startActivity(new Intent(this, RegisterOrLoginActivity.class));
                 finish();
                 break;
             default:

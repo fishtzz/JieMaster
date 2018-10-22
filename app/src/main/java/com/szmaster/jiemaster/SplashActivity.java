@@ -66,7 +66,11 @@ public class SplashActivity extends Activity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                SplashActivity.this.startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                if (UserBus.getInstance().isLogin()) {
+                    SplashActivity.this.startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                } else {
+                    SplashActivity.this.startActivity(new Intent(SplashActivity.this, RegisterOrLoginActivity.class));
+                }
                 SplashActivity.this.finish();
             }
         }, 1500);

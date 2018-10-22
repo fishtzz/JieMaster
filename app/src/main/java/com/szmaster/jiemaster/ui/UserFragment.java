@@ -76,7 +76,7 @@ public class UserFragment extends Fragment implements View.OnClickListener, IUse
         switch (v.getId()) {
             case R.id.setting:
                 //回调指向MainActivity,不在此fragment中处理
-                getActivity().startActivityForResult(new Intent(getActivity(), UserSettingActivity.class), MainActivity.REQUEST_CODE_SETTING);
+                getActivity().startActivity(new Intent(getActivity(), UserSettingActivity.class));
                 break;
             case R.id.about:
                 startActivity(new Intent(getActivity(), AboutActivity.class));
