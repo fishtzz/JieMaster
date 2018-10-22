@@ -10,10 +10,20 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs{
+        projectConfig{
+            storeFile file('./keystore/jiemaster.key')
+            storePassword "123456zouni"
+            keyAlias "jiemaster"
+            keyPassword "123456zouni"
+        }
+    }
     buildTypes {
         release {
-            minifyEnabled false
+            signingConfig signingConfigs.projectConfig
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            multiDexEnabled false
         }
     }
     sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/drawable-v21'] } }
