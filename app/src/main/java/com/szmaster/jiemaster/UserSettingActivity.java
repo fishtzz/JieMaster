@@ -26,19 +26,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+
 import com.bumptech.glide.Glide;
 import com.szmaster.jiemaster.bus.IUser;
 import com.szmaster.jiemaster.bus.UserBus;
+import com.szmaster.jiemaster.db.PreferenceImp;
 import com.szmaster.jiemaster.model.IModel;
 import com.szmaster.jiemaster.model.ReviseUserImgModel;
 import com.szmaster.jiemaster.model.ReviseUsernameModel;
 import com.szmaster.jiemaster.model.User;
 import com.szmaster.jiemaster.network.base.ApiManager;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-
+import com.szmaster.jiemaster.utils.CommonUtil;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -204,11 +205,27 @@ public class UserSettingActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void reviseUserImg(File img) {
+        int time = (int) (System.currentTimeMillis() / 1000);
+        HashMap<String, String> map = new HashMap<>();
+        map.put(Constants.KEY_TIME, time + "");
+        map.put(Constants.KEY_IMEI, PreferenceImp.getIMEICache());
+        map.put(Constants.KEY_MAC, PreferenceImp.getMacCache());
+        map.put(Constants.KEY_SERIALNUMBER, Build.SERIAL);
+        map.put(Constants.KEY_VERSION, CommonUtil.getVersionName());
+        map.put("userId", user.getUserId());
+        map.put("token", user.getToken());
+
         RequestBody body1 = RequestBody.create(MediaType.parse("image/png"), img);
         HashMap<String, RequestBody> params = new HashMap<>();
         params.put("userId", createRequestBody(user.getUserId()));
         params.put("token", createRequestBody(user.getToken()));
-        params.put("time", createRequestBody(((int) (System.currentTimeMillis() / 1000)) + ""));
+        params.put(Constants.KEY_TIME, createRequestBody(time + ""));
+        params.put(Constants.KEY_IMEI, createRequestBody(PreferenceImp.getIMEICache()));
+        params.put(Constants.KEY_MAC, createRequestBody(PreferenceImp.getMacCache()));
+        params.put(Constants.KEY_SERIALNUMBER, createRequestBody(Build.SERIAL));
+        params.put(Constants.KEY_VERSION, createRequestBody(CommonUtil.getVersionName()));
+        params.put(Constants.KEY_SIGN, createRequestBody(CommonUtil.getSign(map)));
+
         params.put("userImg\"; filename=\"" + img.getName(), body1);
         ApiManager.getArdApi().reviseUserImg(params)
                 .subscribeOn(Schedulers.io())

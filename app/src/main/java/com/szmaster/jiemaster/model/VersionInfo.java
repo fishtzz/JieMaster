@@ -1,13 +1,18 @@
 package com.szmaster.jiemaster.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by jiangsiyu on 2018/10/22.
  */
 
 public class VersionInfo {
 
+    @SerializedName("version")
     private String versionName;
+    @SerializedName("info")
     private String updateDesc;
+    @SerializedName("url")
     private String url;
 
     public String getVersionName() {

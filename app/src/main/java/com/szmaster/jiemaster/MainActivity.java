@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                         dialog.dismiss();
                     }
                 })
-                .setPositiveButton(R.string.submit, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.update_now, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent();

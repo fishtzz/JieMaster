@@ -149,42 +149,46 @@ public class HttpConnector {
 //            newBuilder.url(urlBuilder.build());
             RequestBody body = chain.request().body();
             HashMap<String, String> map = new HashMap<>();
-            if (body instanceof FormBody) {
+            if (body instanceof MultipartBody) {
+                newBuilder.method(chain.request().method(), body);
+            } else {
 
                 FormBody.Builder builder = new FormBody.Builder();
                 // 如果加密参数
-                if (encryptionFormParams) {
-                    FormBody formBody = (FormBody) body;
-                    HashMap<String, String> params = new HashMap<>();
-                    for (int i = 0; i < formBody.size(); i++) {
-                        params.put(formBody.encodedName(i), formBody.encodedValue(i));
-                    }
+                if (body instanceof FormBody) {
+                    if (encryptionFormParams) {
+                        FormBody formBody = (FormBody) body;
+                        HashMap<String, String> params = new HashMap<>();
+                        for (int i = 0; i < formBody.size(); i++) {
+                            params.put(formBody.encodedName(i), formBody.encodedValue(i));
+                        }
 
 //                    FormBody newFormBody = new FormBody.Builder()
 //                            .add("parad", EncryptionTools.getParad(params, mMd5Key, mDesKey))
 //                            .build();
 //                    newBuilder.method(chain.request().method(), newFormBody);}
-                } else {
-                    FormBody formBody = (FormBody) body;
-                    for (int i = 0; i < formBody.size(); i++) {
-                        builder.add(formBody.encodedName(i), formBody.encodedValue(i));
-                        map.put(formBody.encodedName(i), formBody.encodedValue(i));
+                    } else {
+                        FormBody formBody = (FormBody) body;
+                        for (int i = 0; i < formBody.size(); i++) {
+                            builder.add(formBody.encodedName(i), formBody.encodedValue(i));
+                            map.put(formBody.encodedName(i), formBody.encodedValue(i));
+                        }
                     }
                 }
                 //在body中写入公共参数
                 int time = (int) (System.currentTimeMillis() / 1000);
-                map.put("time", time + "");
-                map.put("imei", PreferenceImp.getIMEICache());
-                map.put("mac", PreferenceImp.getIMEICache());
-                map.put("serialNumber", Build.SERIAL);
-                builder.add("sign", CommonUtil.getSign(map));
-                builder.add("time", time + "");
-                builder.add("imei", PreferenceImp.getIMEICache());
-                builder.add("mac", PreferenceImp.getIMEICache());
-                builder.add("serialNumber", Build.SERIAL);
+                map.put(Constants.KEY_TIME, time + "");
+                map.put(Constants.KEY_IMEI, PreferenceImp.getIMEICache());
+                map.put(Constants.KEY_MAC, PreferenceImp.getMacCache());
+                map.put(Constants.KEY_SERIALNUMBER, Build.SERIAL);
+                map.put(Constants.KEY_VERSION, CommonUtil.getVersionName());
+                builder.add(Constants.KEY_SIGN, CommonUtil.getSign(map));
+                builder.add(Constants.KEY_TIME, time + "");
+                builder.add(Constants.KEY_IMEI, PreferenceImp.getIMEICache());
+                builder.add(Constants.KEY_MAC, PreferenceImp.getMacCache());
+                builder.add(Constants.KEY_SERIALNUMBER, Build.SERIAL);
+                builder.add(Constants.KEY_VERSION, CommonUtil.getVersionName());
                 newBuilder.method(chain.request().method(), builder.build());
-            } else if (body instanceof MultipartBody) {
-                newBuilder.method(chain.request().method(), body);
             }
 
             Request newRequest = newBuilder.build();

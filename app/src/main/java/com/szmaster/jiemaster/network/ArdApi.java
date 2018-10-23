@@ -1,27 +1,20 @@
 package com.szmaster.jiemaster.network;
 
 
+import java.util.HashMap;
+
 import com.szmaster.jiemaster.model.CheckVersionModel;
 import com.szmaster.jiemaster.model.ReportModel;
-
 import com.szmaster.jiemaster.model.ReviseUserImgModel;
 import com.szmaster.jiemaster.model.ReviseUsernameModel;
 import com.szmaster.jiemaster.model.SmsVerificationModel;
 import com.szmaster.jiemaster.model.UserModel;
-
-import java.io.File;
-import java.util.HashMap;
-
 import io.reactivex.Observable;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
-import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 
 public interface ArdApi {
@@ -35,7 +28,7 @@ public interface ArdApi {
 
     @FormUrlEncoded
     @POST("ardapi/report/")
-    Observable<ReportModel> getReport(@Field("brand") String brand, @Field("model") String model, @Field("version") String version);
+    Observable<ReportModel> getReport(@Field("brand") String brand, @Field("model") String model, @Field("osVersion") String version);
 
     /**
      * @param mobile 手机号
@@ -73,7 +66,6 @@ public interface ArdApi {
     Observable<ReviseUserImgModel> reviseUserImg(@PartMap HashMap<String, RequestBody> params);
 
 
-    @FormUrlEncoded
-    @POST("ardapi//")
+    @POST("ardapi/checkupdate/")
     Observable<CheckVersionModel> checkVersion();
 }
