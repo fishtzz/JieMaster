@@ -60,6 +60,7 @@ public class UserSettingActivity extends AppCompatActivity implements View.OnCli
     private TextView tvMobile;
     private User user;
     private File outputImage;
+    private static final String IMG_CACHE = "jiemaster/avatar.jpg";
 
     public static final int TAKE_PHOTO = 1;
 
@@ -182,7 +183,13 @@ public class UserSettingActivity extends AppCompatActivity implements View.OnCli
     private void launchCamera() {
 
         //创建File对象，用于存储拍照后的照片
-        outputImage = new File(getCacheDir(), "jiemaster/avatar.jpg");
+        outputImage = new File(getExternalCacheDir(), IMG_CACHE);
+
+//        Log.d(UserSettingActivity.class, "getExternalCacheDir().getPath() -> " + getExternalCacheDir().getPath());
+//        Log.d(UserSettingActivity.class, "getCacheDir().getPath() -> " + getCacheDir().getPath());
+//        Log.d(UserSettingActivity.class, "getFilesDir().getPath() -> " + getFilesDir().getPath());
+//        Log.d(UserSettingActivity.class, "getExternalFilesDir().getPath() -> " + getExternalFilesDir("/1234").getPath());
+
         try {
             if (!outputImage.getParentFile().exists()) {
                 outputImage.getParentFile().mkdir();

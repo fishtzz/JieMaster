@@ -2,6 +2,9 @@
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
     <cache-path
         name="images"
-        path="jiemaster" />
+        path="jiemaster"/>
+    <external-cache-path
+        name="images"
+        path="jiemaster"/>
 </paths>
 
