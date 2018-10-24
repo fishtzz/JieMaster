@@ -219,6 +219,7 @@ public class UserSettingActivity extends AppCompatActivity implements View.OnCli
         map.put(Constants.KEY_MAC, PreferenceImp.getMacCache());
         map.put(Constants.KEY_SERIALNUMBER, Build.SERIAL);
         map.put(Constants.KEY_VERSION, CommonUtil.getVersionName());
+        map.put(Constants.KEY_CHANNEL, CommonUtil.getChannel());
         map.put("userId", user.getUserId());
         map.put("token", user.getToken());
 
@@ -231,6 +232,7 @@ public class UserSettingActivity extends AppCompatActivity implements View.OnCli
         params.put(Constants.KEY_MAC, createRequestBody(PreferenceImp.getMacCache()));
         params.put(Constants.KEY_SERIALNUMBER, createRequestBody(Build.SERIAL));
         params.put(Constants.KEY_VERSION, createRequestBody(CommonUtil.getVersionName()));
+        params.put(Constants.KEY_CHANNEL, createRequestBody(CommonUtil.getChannel()));
         params.put(Constants.KEY_SIGN, createRequestBody(CommonUtil.getSign(map)));
 
         params.put("userImg\"; filename=\"" + img.getName(), body1);

@@ -182,12 +182,14 @@ public class HttpConnector {
                 map.put(Constants.KEY_MAC, PreferenceImp.getMacCache());
                 map.put(Constants.KEY_SERIALNUMBER, Build.SERIAL);
                 map.put(Constants.KEY_VERSION, CommonUtil.getVersionName());
+                map.put(Constants.KEY_CHANNEL, CommonUtil.getChannel());
                 builder.add(Constants.KEY_SIGN, CommonUtil.getSign(map));
                 builder.add(Constants.KEY_TIME, time + "");
                 builder.add(Constants.KEY_IMEI, PreferenceImp.getIMEICache());
                 builder.add(Constants.KEY_MAC, PreferenceImp.getMacCache());
                 builder.add(Constants.KEY_SERIALNUMBER, Build.SERIAL);
                 builder.add(Constants.KEY_VERSION, CommonUtil.getVersionName());
+                builder.add(Constants.KEY_CHANNEL, CommonUtil.getChannel());
                 newBuilder.method(chain.request().method(), builder.build());
             }
 

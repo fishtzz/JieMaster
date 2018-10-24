@@ -10,8 +10,8 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    signingConfigs{
-        projectConfig{
+    signingConfigs {
+        projectConfig {
             storeFile file('./keystore/jiemaster.key')
             storePassword "123456zouni"
             keyAlias "jiemaster"
@@ -26,7 +26,12 @@ android {
             multiDexEnabled false
         }
     }
-    sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/drawable-v21'] } }
+    sourceSets {
+        main {
+            res.srcDirs = ['src/main/res', 'src/main/res/drawable-v21']
+            assets.srcDirs = ['assets']
+        }
+    }
 }
 
 dependencies {

@@ -21,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -297,9 +298,23 @@ public class CommonUtil {
         return context.getResources().getDisplayMetrics().widthPixels;
     }
 
-    public static String getb(){
+    public static String getb() {
 
         return Build.BRAND;
+    }
+
+    public static String getChannel() {
+        try {
+            InputStream is = App.getContext().getAssets().open("channel");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            return new String(buffer, "utf-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 }
