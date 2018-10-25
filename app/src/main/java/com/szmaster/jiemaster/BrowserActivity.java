@@ -97,7 +97,7 @@ public class BrowserActivity extends AppCompatActivity {
         mProgressBar = findViewById(R.id.progress);
         mWebView.requestFocus();
         if (TextUtils.isEmpty(title)) {
-            ((TextView) findViewById(R.id.title)).setText(getString(R.string.title_jie_master));
+            ((TextView) findViewById(R.id.title)).setText(getString(R.string.app_name));
         } else {
             ((TextView) findViewById(R.id.title)).setText(title);
         }
