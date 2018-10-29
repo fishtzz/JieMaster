@@ -18,6 +18,7 @@ android {
             keyPassword "123456zouni"
         }
     }
+
     buildTypes {
         release {
             signingConfig signingConfigs.projectConfig

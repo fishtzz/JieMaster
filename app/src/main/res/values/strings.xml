@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE resources [
-    <!ENTITY appname "借钱大师">
+    <!ENTITY appname "猪猪小管家">
     ]>
 <resources>
     <string name="app_name">&appname;</string>
-    <string name="jie_master">借 钱 大 师</string>
+    <string name="jie_master">&appname;</string>
     <string name="slogan">极速·省时·方便</string>
     <string name="quit">再按一次退出程序</string>
     <string name="home">首页</string>
