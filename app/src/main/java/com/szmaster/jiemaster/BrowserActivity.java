@@ -122,6 +122,11 @@ public class BrowserActivity extends AppCompatActivity {
 
             }
         });
+
+        // 设置与Js交互的权限
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        // 设置允许JS弹窗
+        mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         mWebView.loadUrl(url4Load);
     }
 
