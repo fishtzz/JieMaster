@@ -14,6 +14,7 @@ import com.szmaster.jiemaster.utils.CommonUtil;
 import com.szmaster.jiemaster.widget.recyclerview.CommonHolder;
 
 public class GridHolder extends CommonHolder<ReportItem> {
+
     private ImageView img;
     private TextView tvTitle;
     private TextView tvDesc;
@@ -47,7 +48,9 @@ public class GridHolder extends CommonHolder<ReportItem> {
         root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BrowserActivity.launcher(mContext, item.getUrl(), item.getTitle());
+                BrowserActivity.launcher(mContext,
+                        item.getUrl(),
+                        item.getTitle());
             }
         });
     }
