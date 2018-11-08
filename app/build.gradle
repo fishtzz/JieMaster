@@ -10,14 +10,6 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    signingConfigs {
-        projectConfig {
-            storeFile file('./keystore/jiemaster.key')
-            storePassword "123456zouni"
-            keyAlias "jiemaster"
-            keyPassword "123456zouni"
-        }
-    }
 
     buildTypes {
         release {
